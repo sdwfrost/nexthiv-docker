@@ -54,13 +54,13 @@ RUN cd /home/docker/programs && \
 
 # Install MAFFT
 RUN cd /home/docker/programs && \
-	wget http://mafft.cbrc.jp/alignment/software/mafft-7.294-without-extensions-src.tgz && \
-	tar zxvf mafft-7.294-without-extensions-src.tgz && \
-	cd mafft-7.294-without-extensions/core && \
+	wget http://mafft.cbrc.jp/alignment/software/mafft-7.305-without-extensions-src.tgz && \
+	tar zxvf mafft-7.305-without-extensions-src.tgz && \
+	cd mafft-7.305-without-extensions/core && \
 	make clean && \
 	make && \
 	make install && \
-	rm /home/docker/programs/mafft-7.294-without-extensions-src.tgz && \
-	rm -rf /home/docker/programs/mafft-7.294-without-extensions
+	rm /home/docker/programs/mafft-7.305-without-extensions-src.tgz && \
+	rm -rf /home/docker/programs/mafft-7.305-without-extensions
 
 #VOLUME ["data"]
