@@ -19,23 +19,27 @@ RUN useradd docker \
 	&& mkdir /home/docker/programs \
 	&& addgroup docker staff
 
+## Add RethinkDB repository
+
+RUN source /etc/lsb-release && echo "deb http://download.rethinkdb.com/apt $DISTRIB_CODENAME main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list
+RUN wget -qO- https://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add -
+
 RUN apt-get update -qq && \
   DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
  	build-essential \
  	python3-dev \
 	git \
 	wget \
-	cmake
+	cmake \
+	rethinkdb
 	
 
 # Install the recent pip release
 RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
 	python3 get-pip.py && \
 	rm get-pip.py	&& \
-	# Install numpy && \
-	pip3 install numpy && \
-	# Install Biopython && \
-	pip3 install biopython
+	# Install nexthiv
+	pip3 install git+https://github.com/sdwfrost/nexthiv@master
 
 # Install IQ-TREE
 RUN cd /home/docker/programs && \
