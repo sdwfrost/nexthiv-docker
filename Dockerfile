@@ -21,7 +21,7 @@ RUN useradd docker \
 
 ## Add RethinkDB repository
 
-RUN source /etc/lsb-release && echo "deb http://download.rethinkdb.com/apt $DISTRIB_CODENAME main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list
+RUN echo "deb http://download.rethinkdb.com/apt xenial main" > /etc/apt/sources.list.d/rethinkdb.list
 RUN wget -qO- https://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add -
 
 RUN apt-get update -qq && \
