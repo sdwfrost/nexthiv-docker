@@ -19,20 +19,20 @@ RUN useradd docker \
 	&& mkdir /home/docker/programs \
 	&& addgroup docker staff
 
-## Add RethinkDB repository
-
-RUN echo "deb http://download.rethinkdb.com/apt xenial main" > /etc/apt/sources.list.d/rethinkdb.list
-RUN wget -qO- https://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add -
-
 RUN apt-get update -qq && \
   DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
  	build-essential \
  	python3-dev \
 	git \
 	wget \
-	cmake \
-	rethinkdb
-	
+	cmake
+
+## Add RethinkDB repository
+
+RUN echo "deb http://download.rethinkdb.com/apt xenial main" > /etc/apt/sources.list.d/rethinkdb.list
+RUN wget -qO- https://download.rethinkdb.com/apt/pubkey.gpg | apt-key add -
+RUN apt-get update -qq && \
+  DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends rethinkdb
 
 # Install the recent pip release
 RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
