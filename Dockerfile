@@ -63,4 +63,12 @@ RUN cd /home/docker/programs && \
 	rm /home/docker/programs/mafft-7.305-without-extensions-src.tgz && \
 	rm -rf /home/docker/programs/mafft-7.305-without-extensions
 
+# Install TN93
+RUN cd /home/docker/programs && \
+  git clone https://github.com/veg/tn93 && \
+  cd tn93 && \
+  cmake . && \
+  make install && \
+  rm -rf /home/docker/programs/tn93
+
 #VOLUME ["data"]
