@@ -71,4 +71,12 @@ RUN cd /home/docker/programs && \
   make install && \
   rm -rf /home/docker/programs/tn93
 
+# RethinkDB stuff
+VOLUME ["/data"]
+WORKDIR /data
+CMD ["rethinkdb","--bind","all"]
+EXPOSE 8080
+EXPOSE 28015
+EXPOSE 29015
+
 #VOLUME ["data"]
