@@ -25,7 +25,9 @@ RUN apt-get update -qq && \
  	python3-dev \
 	git \
 	wget \
-	cmake
+	cmake \
+  nodejs \
+  npm
 
 ## Add RethinkDB repository
 
@@ -71,12 +73,19 @@ RUN cd /home/docker/programs && \
   make install && \
   rm -rf /home/docker/programs/tn93
 
+# Chateau
+RUN npm install -g chateau
+
 # RethinkDB stuff
 VOLUME ["/data"]
 WORKDIR /data
+
 CMD ["rethinkdb","--bind","all"]
+CMD ["chateau"]
+
 EXPOSE 8080
 EXPOSE 28015
 EXPOSE 29015
+EXPOSE 3000
 
 #VOLUME ["data"]
