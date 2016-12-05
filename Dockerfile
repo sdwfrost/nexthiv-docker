@@ -36,6 +36,24 @@ RUN wget -qO- https://download.rethinkdb.com/apt/pubkey.gpg | apt-key add -
 RUN apt-get update -qq && \
   DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends rethinkdb
 
+## Add R
+
+RUN sh -c 'echo "deb http://cran.rstudio.com/bin/linux/ubuntu xenial/" >> /etc/apt/sources.list'
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+RUN apt-get update -qq && \
+  DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends  \
+  default-jdk \
+	perl \
+	libcurl4-openssl-dev \
+  r-base \
+  r-base-dev
+
+#setup R configs
+RUN echo "r <- getOption('repos'); r['CRAN'] <- 'http://cran.rstudio.com'; options(repos = r);" > ~/.Rprofile
+RUN Rscript -e "install.packages('ape')"
+RUN Rscript -e "install.packages('ggplot2')"
+RUN Rscript -e "install.packages('plotly')"
+
 # Install the recent pip release
 RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
 	python3 get-pip.py && \
